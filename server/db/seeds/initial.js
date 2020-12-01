@@ -1,10 +1,18 @@
 const { keyBy } = require("lodash");
 const { companies, candles, user_candles } = require("../data/testData");
+// const { hash } = require("../../../api/account/helpers/account");
+const { hash } = require("../../api/helpers/account");
 
 exports.seed = async function (knex) {
     for (let i = tableOrder.length - 1; i >= 0; i--) {
         await resetTable(knex, tableOrder[i]);
     }
+
+    await knex("users").insert({
+        username: "testaccount",
+        email: "a@a.com",
+        password: hash("userpass12")
+    });
 
     const companiesByName = keyBy(
         await knex("companies")
@@ -49,6 +57,7 @@ exports.seed = async function (knex) {
                 notes
             }) => {
                 return {
+                    user_id: 1,
                     candle_id: candlesByKey[`${name}_${company}`].id,
                     spring: seasons.includes("spring"),
                     summer: seasons.includes("summer"),
