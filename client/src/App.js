@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 
 import RequireAuth from "./components/RequireAuth";
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
@@ -15,6 +16,7 @@ class App extends Component {
         this.state = { authenticated: false };
 
         this.authenticateUser = this.authenticateUser.bind(this);
+        this.logOut = this.logOut.bind(this);
     }
 
     authenticateUser(bool) {
@@ -58,15 +60,10 @@ class App extends Component {
         return (
             <div className="App">
                 <BrowserRouter>
-                    <header>
-                        {authenticated ? (
-                            <nav>
-                                <Link to="/login" onClick={this.logOut}>
-                                    Log Out
-                                </Link>
-                            </nav>
-                        ) : null}
-                    </header>
+                    <Header
+                        authenticated={authenticated}
+                        logOut={this.logOut}
+                    />
                     <Switch>
                         <Route
                             exact

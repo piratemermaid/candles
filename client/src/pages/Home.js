@@ -23,14 +23,6 @@ const Home = (props) => {
     return (
         <div>
             <h1>Home</h1>
-            {!props.authenticated ? (
-                <div>
-                    <Link to="/login">Log In</Link> |{" "}
-                    <Link to="/signup">Sign Up</Link>
-                </div>
-            ) : (
-                <a onClick={logOut}>Log Out</a>
-            )}
         </div>
     );
 };
