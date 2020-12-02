@@ -54,6 +54,18 @@ class App extends Component {
             .catch((err) => {
                 console.log(err);
             });
+
+        await axios({
+            method: "get",
+            url: "/api/user/candles"
+        })
+            .then((res) => {
+                console.log(res.data);
+                this.setState({ userCandles: res.data });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     toggleNightMode() {
@@ -88,6 +100,7 @@ class App extends Component {
                                 <AuthHome
                                     authenticated={authenticated}
                                     authenticateUser={this.authenticateUser}
+                                    userCandles={userCandles}
                                 />
                             )}
                         />
