@@ -13,7 +13,7 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { authenticated: false };
+        this.state = { authenticated: false, nightMode: true, userCandles: [] };
 
         this.authenticateUser = this.authenticateUser.bind(this);
         this.logOut = this.logOut.bind(this);
@@ -40,6 +40,10 @@ class App extends Component {
     };
 
     async componentDidMount() {
+        if (this.state.nightMode) {
+            document.getElementById("root").classList.add("night-mode");
+        }
+
         await axios({
             method: "get",
             url: "/api/account/authenticated"
@@ -52,8 +56,20 @@ class App extends Component {
             });
     }
 
+    toggleNightMode() {
+        const { nightMode } = this.state;
+
+        if (!nightMode) {
+            document.getElementById("root").classList.add("night-mode");
+        } else {
+            document.getElementById("root").classList.remove("night-mode");
+        }
+
+        this.setState({ nightMode: !nightMode });
+    }
+
     render() {
-        const { authenticated } = this.state;
+        const { authenticated, nightMode, userCandles } = this.state;
 
         const AuthHome = RequireAuth(Home);
 

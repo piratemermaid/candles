@@ -1,3 +1,10 @@
 .App {
     text-align: center;
 }
+
+.night-mode {
+    background: rgb(62, 62, 62);
+    color: rgb(230, 230, 230);
+    /* TODO: make background go to bottom of page */
+    min-height: 1000px;
+}
